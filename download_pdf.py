@@ -46,7 +46,7 @@ def interactive_download():
 
 def manual_url_entry():
     """Allow manual entry of URLs"""
-    print("\n📝 Manual URL Entry")
+    print("\n Manual URL Entry")
     print("Enter URLs one by one (press Enter twice to finish):")
     print("Example: https://nerdc.gov.ng/content_manager/view_pri.html?pdf=filename.pdf")
     print()
@@ -74,7 +74,7 @@ def manual_url_entry():
 
 def choose_collection():
     """Choose from predefined collections"""
-    print("\n📚 Predefined Collections")
+    print("\nPredefined Collections")
     print("a. Basic Science documents")
     print("b. Mathematics documents")
     print("c. English documents") 
@@ -103,7 +103,7 @@ def choose_collection():
 
 def load_from_file():
     """Load URLs from a text file"""
-    print("\n📁 Load from File")
+    print("\nLoad from File")
     filename = input("Enter filename (e.g., my_urls.txt): ").strip()
     
     if not filename:
@@ -156,7 +156,7 @@ def start_download(urls):
         print("No URLs to download.")
         return False
     
-    print(f"\n🚀 Starting download of {len(urls)} documents...")
+    print(f"\n Starting download of {len(urls)} documents...")
     
     # Create downloader with user-friendly settings
     downloader = NERDCDownloader(
