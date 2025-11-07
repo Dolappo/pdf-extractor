@@ -16,7 +16,6 @@ class NERDCDownloader:
         self.download_dir.mkdir(exist_ok=True)
         self.delay = delay_between_downloads
         
-        # Set up session with browser-like headers
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -84,7 +83,7 @@ class NERDCDownloader:
         # Extract filename
         pdf_filename = self.extract_pdf_filename(url)
         if not pdf_filename:
-            print("❌ Could not extract PDF filename from URL")
+            print("Could not extract PDF filename from URL")
             return False
         
         print(f"Target PDF: {pdf_filename}")
@@ -114,7 +113,7 @@ class NERDCDownloader:
                         with open(output_path, 'wb') as f:
                             f.write(response.content)
                         
-                        print(f"✅ SUCCESS: Downloaded to {output_path}")
+                        print(f"SUCCESS: Downloaded to {output_path}")
                         self.successful_downloads.append({
                             'original_url': url,
                             'pdf_url': pdf_url,
@@ -127,16 +126,16 @@ class NERDCDownloader:
                         debug_path = self.download_dir / f"debug_{pdf_filename}_{i}.txt"
                         with open(debug_path, 'wb') as f:
                             f.write(response.content[:2000])
-                        print(f"⚠️  Invalid PDF saved debug info to: {debug_path}")
+                        print(f"Invalid PDF saved debug info to: {debug_path}")
                 
                 else:
-                    print(f"❌ HTTP {response.status_code}")
+                    print(f"HTTP {response.status_code}")
                     
             except requests.exceptions.RequestException as e:
-                print(f"❌ Network error: {e}")
+                print(f"Network error: {e}")
                 continue
         
-        print(f"❌ FAILED: Could not download {pdf_filename}")
+        print(f"FAILED: Could not download {pdf_filename}")
         self.failed_downloads.append({
             'original_url': url,
             'filename': pdf_filename,
@@ -158,7 +157,7 @@ class NERDCDownloader:
                 url = url_info['url']
                 custom_filename = url_info.get('filename')
             else:
-                print(f"❌ Invalid URL format: {url_info}")
+                print(f"Invalid URL format: {url_info}")
                 continue
             
             print(f"\n[{i}/{len(urls)}] Processing...")
@@ -177,8 +176,8 @@ class NERDCDownloader:
         print(f"\n{'='*60}")
         print("DOWNLOAD SUMMARY")
         print(f"{'='*60}")
-        print(f"✅ Successful: {len(self.successful_downloads)}")
-        print(f"❌ Failed: {len(self.failed_downloads)}")
+        print(f"Successful: {len(self.successful_downloads)}")
+        print(f"Failed: {len(self.failed_downloads)}")
         
         if self.successful_downloads:
             print(f"\nSuccessful Downloads:")
@@ -212,7 +211,7 @@ class NERDCDownloader:
         with open(log_path, 'w') as f:
             json.dump(log_data, f, indent=2)
         
-        print(f"📝 Results logged to: {log_path}")
+        print(f"Results logged to: {log_path}")
 
 def main():
     """Main function with example usage"""
@@ -255,7 +254,7 @@ def load_urls_from_file(filename):
         with open(filename, 'r') as f:
             for line in f:
                 line = line.strip()
-                if line and not line.startswith('#'):  # Skip empty lines and comments
+                if line and not line.startswith('#'):
                     urls.append(line)
         print(f"Loaded {len(urls)} URLs from {filename}")
     except FileNotFoundError:
